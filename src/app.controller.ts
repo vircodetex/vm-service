@@ -1,7 +1,13 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Query, ValidationPipe } from '@nestjs/common';
+import { ApiOkResponse, ApiTags, ApiExtraModels, ApiQuery, getSchemaPath } from '@nestjs/swagger';
 import { AppService } from './app.service';
+import { GetPeopleResponseDto } from './dto/people.dto';
+import { GetWeatherResponseDto } from './dto/weather.dto';
+import { CityQueryDto } from './dto/city-query.dto';
 
 @Controller()
+@ApiTags('vm-service')
+@ApiExtraModels(CityQueryDto)
 export class AppController {
   constructor(private readonly appService: AppService) { }
 
@@ -11,14 +17,16 @@ export class AppController {
   }
 
   @Get('people')
-  getPeople(@Query('city') city = 'Unknown'): { city: string; population: number, population_year: string } {
-    return this.appService.getPeople(city);
+  @ApiOkResponse({ type: GetPeopleResponseDto })
+  @ApiQuery({ name: 'city', required: true, schema: { $ref: getSchemaPath(CityQueryDto) } })
+  getPeople(@Query(new ValidationPipe({ transform: true })) query: CityQueryDto): GetPeopleResponseDto {
+    return this.appService.getPeople(query.city);
   }
 
   @Get('weather')
-  getWeather(
-    @Query('city') city = 'Unknown',
-  ): { city: string; temperature: number; windspeed: number; description: string } {
-    return this.appService.getWeather(city);
+  @ApiOkResponse({ type: GetWeatherResponseDto })
+  @ApiQuery({ name: 'city', required: true, schema: { $ref: getSchemaPath(CityQueryDto) } })
+  getWeather(@Query(new ValidationPipe({ transform: true })) query: CityQueryDto): GetWeatherResponseDto {
+    return this.appService.getWeather(query.city);
   }
 }
