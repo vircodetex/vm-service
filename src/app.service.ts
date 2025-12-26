@@ -17,19 +17,19 @@ export class AppService {
   }
 
   // Return number of people for the city (random but meaningful)
-  getPeople(city: string): { city: string; people: number } {
+  getPeople(city: string): { city: string; population: number, population_year: string } {
     const seed = this.hashString(city.toLowerCase());
     // Use seed to pick a base population range by city name length and seed
     const base = (seed % 9000000) + 10000; // between 10k and ~9.01M
     // Apply a modifier based on vowels to create variety
     const vowelCount = (city.match(/[aeiou]/gi) || []).length;
     const modifier = 1 + (vowelCount % 5) * 0.12;
-    const people = Math.round(base * modifier);
-    return { city, people };
+    const population = Math.round(base * modifier);
+    return { city, population, population_year: "2024" };
   }
 
   // Return temperature (C) and wind speed (kph) with a short description
-  getWeather(city: string): { city: string; temperatureC: number; windSpeedKph: number; description: string } {
+  getWeather(city: string): { city: string; temperature: number; windSpeed: number; description: string } {
     const seed = this.hashString(city.toLowerCase() + ':weather');
     // Temperature between -15 and 40 C
     const temp = Math.round(((seed % 560) / 560) * 55 - 15);
@@ -51,6 +51,6 @@ export class AppService {
     ];
     const desc = descriptions[seed % descriptions.length];
 
-    return { city, temperatureC: temp, windSpeedKph: wind, description: desc };
+    return { city, temperature: temp, windSpeed: wind, description: desc };
   }
 }
