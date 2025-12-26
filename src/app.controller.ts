@@ -11,14 +11,14 @@ export class AppController {
   }
 
   @Get('people')
-  getPeople(@Query('city') city = 'Unknown'): { city: string; people: number } {
+  getPeople(@Query('city') city = 'Unknown'): { city: string; population: number, population_year: string } {
     return this.appService.getPeople(city);
   }
 
   @Get('weather')
   getWeather(
     @Query('city') city = 'Unknown',
-  ): { city: string; temperatureC: number; windSpeedKph: number; description: string } {
+  ): { city: string; temperature: number; windSpeed: number; description: string } {
     return this.appService.getWeather(city);
   }
 }
