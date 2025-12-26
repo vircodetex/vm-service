@@ -18,7 +18,7 @@ export class AppController {
   @Get('weather')
   getWeather(
     @Query('city') city = 'Unknown',
-  ): { city: string; temperature: number; windSpeed: number; description: string } {
+  ): { city: string; temperature: number; windspeed: number; description: string } {
     return this.appService.getWeather(city);
   }
 }

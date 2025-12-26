@@ -29,7 +29,7 @@ export class AppService {
   }
 
   // Return temperature (C) and wind speed (kph) with a short description
-  getWeather(city: string): { city: string; temperature: number; windSpeed: number; description: string } {
+  getWeather(city: string): { city: string; temperature: number; windspeed: number; description: string } {
     const seed = this.hashString(city.toLowerCase() + ':weather');
     // Temperature between -15 and 40 C
     const temp = Math.round(((seed % 560) / 560) * 55 - 15);
@@ -51,6 +51,6 @@ export class AppService {
     ];
     const desc = descriptions[seed % descriptions.length];
 
-    return { city, temperature: temp, windSpeed: wind, description: desc };
+    return { city, temperature: temp, windspeed: wind, description: desc };
   }
 }
