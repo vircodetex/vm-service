@@ -3,6 +3,9 @@
 /node_modules
 /build
 
+# Generated OpenAPI schema
+src/public/openapi.json
+
 # Logs
 logs
 *.log

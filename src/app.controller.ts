@@ -32,13 +32,4 @@ export class AppController {
     return this.appService.getWeather(query.city);
   }
 
-  @Get('schema')
-  getSchema(): any {
-    const path = join(process.cwd(), 'openapi.json');
-    if (!existsSync(path)) {
-      return { error: 'openapi.json not found' };
-    }
-    const raw = readFileSync(path, 'utf8');
-    return JSON.parse(raw);
-  }
 }

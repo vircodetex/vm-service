@@ -16,10 +16,22 @@ async function main() {
         .build();
 
     const document = SwaggerModule.createDocument(app, config);
-    const outPath = path.join(process.cwd(), 'openapi.json');
-    fs.writeFileSync(outPath, JSON.stringify(document, null, 2));
+    // Write into dist for builds
+    const distDir = path.join(process.cwd(), 'dist');
+    if (!fs.existsSync(distDir)) {
+        fs.mkdirSync(distDir, { recursive: true });
+    }
+    const distOutPath = path.join(distDir, 'openapi.json');
+    fs.writeFileSync(distOutPath, JSON.stringify(document, null, 2));
+    // Also write into src/public so it persists during start:dev
+    const publicDir = path.join(process.cwd(), 'src', 'public');
+    if (!fs.existsSync(publicDir)) {
+        fs.mkdirSync(publicDir, { recursive: true });
+    }
+    const publicOutPath = path.join(publicDir, 'openapi.json');
+    fs.writeFileSync(publicOutPath, JSON.stringify(document, null, 2));
     // eslint-disable-next-line no-console
-    console.log('Wrote', outPath);
+    console.log('Wrote', distOutPath, 'and', publicOutPath);
     await app.close();
 }
 
