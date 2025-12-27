@@ -1,0 +1,152 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/": {
+      "get": {
+        "operationId": "AppController_getHello",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "vm-service"
+        ]
+      }
+    },
+    "/people": {
+      "get": {
+        "operationId": "AppController_getPeople",
+        "parameters": [
+          {
+            "name": "city",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/CityQueryDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetPeopleResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "vm-service"
+        ]
+      }
+    },
+    "/weather": {
+      "get": {
+        "operationId": "AppController_getWeather",
+        "parameters": [
+          {
+            "name": "city",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/CityQueryDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetWeatherResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "vm-service"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "vm-service",
+    "description": "",
+    "version": "0.0.1",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "schemas": {
+      "CityQueryDto": {
+        "type": "object",
+        "properties": {
+          "city": {
+            "type": "string",
+            "example": "London"
+          }
+        },
+        "required": [
+          "city"
+        ]
+      },
+      "GetPeopleResponseDto": {
+        "type": "object",
+        "properties": {
+          "city": {
+            "type": "string",
+            "example": "London"
+          },
+          "population": {
+            "type": "number",
+            "example": 8900000
+          },
+          "population_year": {
+            "type": "string",
+            "example": "2024"
+          }
+        },
+        "required": [
+          "city",
+          "population",
+          "population_year"
+        ]
+      },
+      "GetWeatherResponseDto": {
+        "type": "object",
+        "properties": {
+          "city": {
+            "type": "string",
+            "example": "London"
+          },
+          "temperature": {
+            "type": "number",
+            "example": 12
+          },
+          "windspeed": {
+            "type": "number",
+            "example": 18
+          },
+          "description": {
+            "type": "string",
+            "example": "Partly cloudy"
+          }
+        },
+        "required": [
+          "city",
+          "temperature",
+          "windspeed",
+          "description"
+        ]
+      }
+    }
+  }
+}

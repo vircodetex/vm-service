@@ -51,6 +51,9 @@ export class AppService {
     ];
     const desc = descriptions[seed % descriptions.length];
 
-    return { city, temperature: temp, windspeed: wind, description: desc };
+    const description = `The temperature is ${temp} degrees Celsius (°C) and the wind speed is ${wind} kph (kilometers per hour). Conditions: ${desc}.`;
+
+
+    return { city, temperature: temp, windspeed: wind, description };
   }
 }
